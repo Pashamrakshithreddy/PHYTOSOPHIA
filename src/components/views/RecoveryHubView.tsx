@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { roomDb, type ScanLogEntity } from '../../services/roomDatabase';
+import { roomDb } from '../../services/roomDatabase';
 import {
   Layers,
   Grid3X3,
@@ -40,6 +40,50 @@ interface ProtocolStep {
   vitalityGain: number;
 }
 
+interface PlantRecoveryBinding {
+  baselinePhoto: string;
+  baselineHealth: number;
+  baselineDate: string;
+  currentPhoto: string;
+  currentHealth: number;
+  currentDate: string;
+}
+
+const DEFAULT_RECOVERY_BINDINGS: Record<string, PlantRecoveryBinding> = {
+  'plant-monstera-1': {
+    baselinePhoto: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=1200&q=80',
+    baselineHealth: 58,
+    baselineDate: 'Day 0 (Initial Chlorosis Onset)',
+    currentPhoto: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=1200&q=80',
+    currentHealth: 88,
+    currentDate: 'Day 18 (Active Remission)',
+  },
+  'plant-mango-1': {
+    baselinePhoto: 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=1200&q=80',
+    baselineHealth: 61,
+    baselineDate: 'Day 0 (Colletotrichum Blight)',
+    currentPhoto: 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=1200&q=80',
+    currentHealth: 86,
+    currentDate: 'Day 21 (Pruned & Treated)',
+  },
+  'plant-rose-1': {
+    baselinePhoto: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
+    baselineHealth: 68,
+    baselineDate: 'Day 0 (Powdery Mildew Film)',
+    currentPhoto: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
+    currentHealth: 94,
+    currentDate: 'Day 14 (Full Foliar Turgor)',
+  },
+  'plant-aloe-1': {
+    baselinePhoto: 'https://images.unsplash.com/photo-1567688993206-43c34131b21f?auto=format&fit=crop&w=1200&q=80',
+    baselineHealth: 70,
+    baselineDate: 'Day 0 (Solar Scald & Desiccation)',
+    currentPhoto: 'https://images.unsplash.com/photo-1567688993206-43c34131b21f?auto=format&fit=crop&w=1200&q=80',
+    currentHealth: 92,
+    currentDate: 'Day 25 (Repigmentation)',
+  },
+};
+
 export const RecoveryHubView: React.FC<RecoveryHubViewProps> = () => {
   const [viewMode, setViewMode] = useState<'compare' | 'timeline' | 'grid'>('compare');
   const [selectedPlantId, setSelectedPlantId] = useState<string>('plant-monstera-1');
@@ -47,22 +91,32 @@ export const RecoveryHubView: React.FC<RecoveryHubViewProps> = () => {
   const [zoomLevel, setZoomLevel] = useState<number>(1);
   const [inspectorLayout, setInspectorLayout] = useState<'side-by-side' | 'slider'>('side-by-side');
 
-  // Custom photo uploads for dual inspector
-  const [customBeforeImg, setCustomBeforeImg] = useState<string | null>(null);
-  const [customAfterImg, setCustomAfterImg] = useState<string | null>(null);
-
   const plants = roomDb.plantDao.getAll();
   const allScans = roomDb.scanLogDao.getAll();
   const currentPlant = plants.find((p) => p.id === selectedPlantId) || plants[0];
   const plantScans = roomDb.scanLogDao.getByPlantId(currentPlant?.id || '');
 
-  // Compare pair
-  const recoveryPair = roomDb.scanLogDao.getRecoveryPair(currentPlant?.id || '');
-  const beforeScan: ScanLogEntity | undefined = recoveryPair.before || plantScans[plantScans.length - 1];
-  const afterScan: ScanLogEntity | undefined = recoveryPair.after || plantScans[0];
+  // Immutable State Binding: Load strictly linked photos per plant
+  const [recoveryBindings, setRecoveryBindings] = useState<Record<string, PlantRecoveryBinding>>(() => {
+    try {
+      const saved = localStorage.getItem('phytosophia_recovery_bindings');
+      return saved ? JSON.parse(saved) : DEFAULT_RECOVERY_BINDINGS;
+    } catch {
+      return DEFAULT_RECOVERY_BINDINGS;
+    }
+  });
 
-  const beforeImage = customBeforeImg || beforeScan?.imageUrl || 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=1200&q=80';
-  const afterImage = customAfterImg || afterScan?.imageUrl || 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=1200&q=80';
+  const currentBinding: PlantRecoveryBinding = recoveryBindings[selectedPlantId] || {
+    baselinePhoto: currentPlant?.imageUrl || DEFAULT_RECOVERY_BINDINGS['plant-monstera-1'].baselinePhoto,
+    baselineHealth: Math.max(40, (currentPlant?.healthScore || 80) - 25),
+    baselineDate: 'Day 0 (Pathology Onset)',
+    currentPhoto: currentPlant?.imageUrl || DEFAULT_RECOVERY_BINDINGS['plant-monstera-1'].currentPhoto,
+    currentHealth: currentPlant?.healthScore || 85,
+    currentDate: 'Day 14 (Current Treatment)',
+  };
+
+  const beforeImage = currentBinding.baselinePhoto;
+  const afterImage = currentBinding.currentPhoto;
 
   // Interactive Diagnostic Checklist State
   const symptomsCatalog: SymptomItem[] = [
@@ -145,29 +199,55 @@ export const RecoveryHubView: React.FC<RecoveryHubViewProps> = () => {
 
   // Calculate dynamic recovery parameters based on completed protocol steps
   const completedStepsCount = protocolSteps.filter((s) => s.completed).length;
-  const baseHealth = beforeScan?.pathology?.healthScore || 62;
+  const baseHealth = currentBinding.baselineHealth;
   const vitalityGainSum = protocolSteps
     .filter((s) => s.completed)
     .reduce((sum, s) => sum + s.vitalityGain, 0);
 
-  const projectedHealth = Math.min(98, baseHealth + vitalityGainSum);
+  const projectedHealth = Math.min(99, baseHealth + vitalityGainSum);
   const totalDaysRequired = Math.max(
-    7,
-    30 - protocolSteps.filter((s) => s.completed).reduce((sum, s) => sum + s.recoveryBoostDays, 0)
+    5,
+    28 - protocolSteps.filter((s) => s.completed).reduce((sum, s) => sum + s.recoveryBoostDays, 0)
   );
 
-  // File Upload Handlers
+  // File Upload Handlers (Immutable State Binding to current plant)
   const handleUploadBefore = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const url = URL.createObjectURL(e.target.files[0]);
-      setCustomBeforeImg(url);
+      setRecoveryBindings((prev) => {
+        const updated = {
+          ...prev,
+          [selectedPlantId]: {
+            ...(prev[selectedPlantId] || currentBinding),
+            baselinePhoto: url,
+          },
+        };
+        try {
+          localStorage.setItem('phytosophia_recovery_bindings', JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
+      confetti({ particleCount: 25, spread: 45 });
     }
   };
 
   const handleUploadAfter = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const url = URL.createObjectURL(e.target.files[0]);
-      setCustomAfterImg(url);
+      setRecoveryBindings((prev) => {
+        const updated = {
+          ...prev,
+          [selectedPlantId]: {
+            ...(prev[selectedPlantId] || currentBinding),
+            currentPhoto: url,
+          },
+        };
+        try {
+          localStorage.setItem('phytosophia_recovery_bindings', JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
+      confetti({ particleCount: 25, spread: 45 });
     }
   };
 

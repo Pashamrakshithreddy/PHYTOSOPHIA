@@ -5,7 +5,6 @@ import {
   User,
   Settings,
   ChevronDown,
-  MapPin,
   Leaf,
   LogOut,
   Users,
@@ -35,19 +34,19 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Strict priority ordering as specified in architecture requirements:
-  // 1. Dashboard, 2. My Garden, 3. AI Scanner, 4. Recovery Hub, 5. Care Calendar,
-  // 6. Encyclopedia, 7. Dr. Flora, 8. Research Team, 9. My Home Plants Map
+  // Strict priority ordering as defined in Master Architectural Specification:
+  // 1. Dashboard, 2. My Garden & Home Map (consolidated), 3. AI Scanner,
+  // 4. Recovery Hub, 5. Care Calendar, 6. Encyclopedia, 7. Dr. Flora, 8. Research Team,
+  // [+ New Plant] Global Action Button
   const navLinks = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'plants', label: 'My Garden', icon: Sprout },
+    { id: 'plants', label: 'My Garden & Home Map', icon: Sprout },
     { id: 'scanner', label: 'AI Scanner', icon: Scan },
     { id: 'recovery', label: 'Recovery Hub', icon: Activity },
     { id: 'calendar', label: 'Care Calendar', icon: Calendar },
     { id: 'encyclopedia', label: 'Encyclopedia', icon: BookOpen },
     { id: 'doctor', label: 'Dr. Flora', icon: Bot },
     { id: 'team', label: 'Research Team', icon: Users },
-    { id: 'spatial-hub', label: 'My Home Plants Map', icon: MapPin },
   ];
 
   const handleTabSelect = (tabId: string) => {
@@ -79,9 +78,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* Right Action Controls: + New Plant Button, User Avatar, Mobile Toggle */}
+          {/* Right Action Controls: [+ New Plant] CTA Button, User Avatar, Mobile Toggle */}
           <div className="flex items-center gap-3">
-            {/* 10. [+ New Plant] Action Button */}
+            {/* Global [+ New Plant] Action Button */}
             <button
               onClick={onOpenAddPlantModal}
               className="luxury-btn-primary text-xs px-4 py-2 gap-1.5 shrink-0"
@@ -129,13 +128,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                     <button
                       onClick={() => {
-                        handleTabSelect('spatial-hub');
+                        handleTabSelect('plants');
                         setShowUserMenu(false);
                       }}
                       className="w-full px-3 py-2 text-left text-xs text-[#637462] hover:text-[#193C0D] hover:bg-[#F7F9F5] rounded-xl font-medium flex items-center gap-2"
                     >
-                      <MapPin className="w-4 h-4 text-[#4E763B]" />
-                      <span>My Home Plants Map</span>
+                      <Sprout className="w-4 h-4 text-[#4E763B]" />
+                      <span>My Garden & Home Map</span>
                     </button>
 
                     <button
@@ -187,12 +186,12 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Priority Navigation Ribbon (Desktop & Tablet): Never squeezes, clips, or overflows */}
+      {/* Priority Navigation Ribbon: Responsive flexbox with no squishing or clipping */}
       <nav className="border-t border-[#E4ECE2] bg-[#FFFFFF] overflow-x-auto no-scrollbar">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
           <div className="flex items-center gap-1.5 min-w-max">
             {navLinks.map((item) => {
-              const isActive = activeTab === item.id;
+              const isActive = activeTab === item.id || (item.id === 'plants' && activeTab === 'spatial-hub');
               const Icon = item.icon;
               return (
                 <button
@@ -220,7 +219,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             Navigation Menu
           </div>
           {navLinks.map((item) => {
-            const isActive = activeTab === item.id;
+            const isActive = activeTab === item.id || (item.id === 'plants' && activeTab === 'spatial-hub');
             const Icon = item.icon;
             return (
               <button

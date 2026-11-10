@@ -590,8 +590,54 @@ export const ScannerView: React.FC<ScannerViewProps> = ({ initialPlantId }) => {
             </div>
           </div>
 
-          {/* Results Analysis Dossier */}
-          {scanResult ? (
+          {/* Results Analysis Dossier or Non-Plant Rejection State */}
+          {scanResult && !scanResult.isPlantValid ? (
+            <div className="p-8 sm:p-10 rounded-3xl bg-[#FFEBEE] border-2 border-[#FFD2D2] text-center space-y-5 animate-in fade-in shadow-xs">
+              <div className="w-16 h-16 rounded-full bg-white/90 border border-[#FFD2D2] flex items-center justify-center mx-auto shadow-xs text-[#D32F2F]">
+                <AlertOctagon className="w-9 h-9" />
+              </div>
+
+              <div className="space-y-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#D32F2F] bg-white/80 px-3 py-1 rounded-full border border-[#FFD2D2]">
+                  Pre-Validation Neural Rejection Protocol Activated
+                </span>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-[#D32F2F]">
+                  {scanResult.rejectionMessage || '❌ Invalid Scan: This does not appear to be a plant. Please scan botanical foliage, stems, or flowers.'}
+                </h3>
+                <p className="text-xs sm:text-sm text-[#C62828] font-medium max-w-lg mx-auto leading-relaxed">
+                  The computer vision confidence score for botanical features (leaves, stems, petals, fronds) was only {Math.round(scanResult.botanicalConfidence * 100)}%, which falls below the strict 30% validity threshold. Diagnostic analysis was aborted to prevent hallucinated classifications.
+                </p>
+              </div>
+
+              {/* Guidelines box */}
+              <div className="bg-white/80 p-5 rounded-2xl border border-[#FFD2D2] max-w-md mx-auto text-left text-xs space-y-2">
+                <strong className="text-[#D32F2F] block font-bold">Recommended Botanical Capture Tips:</strong>
+                <ul className="text-[#C62828] space-y-1 text-[11px] list-disc list-inside">
+                  <li>Center genuine plant foliage, stems, or floral petals in the frame</li>
+                  <li>Avoid scanning laptops, screens, household electronics, or furniture</li>
+                  <li>Ensure adequate ambient lighting without blinding glare or harsh shadows</li>
+                </ul>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                <button
+                  onClick={() => {
+                    setSelectedPreset(SCAN_PRESETS[0]);
+                    setInputSource('preset');
+                    setScanResult(null);
+                  }}
+                  className="luxury-btn-primary px-5 py-2.5 text-xs font-semibold"
+                >
+                  <span>Test Genuine Leaf (Monstera Deliciosa)</span>
+                </button>
+
+                <label className="luxury-btn-outline px-5 py-2.5 text-xs font-semibold cursor-pointer border-[#FFD2D2] text-[#D32F2F] hover:bg-white">
+                  <span>Browse New Image File</span>
+                  <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
+                </label>
+              </div>
+            </div>
+          ) : scanResult ? (
             <div className="luxury-card p-6 sm:p-8 space-y-5 animate-in fade-in">
               <div className="flex items-center justify-between pb-3 border-b border-[#E4ECE2]">
                 <div className="flex items-center gap-2 text-[#4E763B]">

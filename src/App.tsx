@@ -8,7 +8,7 @@ import { SignupPage } from './components/auth/SignupPage';
 import { ForgotPasswordPage } from './components/auth/ForgotPasswordPage';
 import { OnboardingModal } from './components/auth/OnboardingModal';
 import { AgriDashboardView } from './components/views/AgriDashboardView';
-import { MyPlantsView } from './components/views/MyPlantsView';
+import { MyGardenAndHomeMapView } from './components/views/MyGardenAndHomeMapView';
 import { PlantProfileView } from './components/views/PlantProfileView';
 import { ScannerView } from './components/views/ScannerView';
 import { RecoveryHubView } from './components/views/RecoveryHubView';
@@ -19,7 +19,6 @@ import { LeaderboardView } from './components/views/LeaderboardView';
 import { ProfileView } from './components/views/ProfileView';
 import { SettingsView } from './components/views/SettingsView';
 import { TeamBoardView } from './components/views/TeamBoardView';
-import { HomeSpatialHubView } from './components/views/HomeSpatialHubView';
 import { AddPlantModal } from './components/modals/AddPlantModal';
 import type { DigitalTwinPlant } from './types';
 
@@ -90,10 +89,12 @@ const MainAppContent: React.FC = () => {
           />
         )}
 
-        {activeTab === 'plants' && (
-          <MyPlantsView
+        {(activeTab === 'plants' || activeTab === 'spatial-hub') && (
+          <MyGardenAndHomeMapView
             onSelectPlant={handleSelectPlant}
-            onOpenAddModal={() => handleOpenAddModal()}
+            onOpenAddModal={handleOpenAddModal}
+            onNavigateTab={handleTabNavigate}
+            initialMode={activeTab === 'spatial-hub' ? 'spatial' : 'spatial'}
           />
         )}
 
@@ -114,13 +115,6 @@ const MainAppContent: React.FC = () => {
 
         {activeTab === 'recovery' && (
           <RecoveryHubView onNavigateTab={handleTabNavigate} />
-        )}
-
-        {activeTab === 'spatial-hub' && (
-          <HomeSpatialHubView
-            onNavigateTab={handleTabNavigate}
-            onOpenAddModal={handleOpenAddModal}
-          />
         )}
 
         {activeTab === 'calendar' && <CalendarView />}

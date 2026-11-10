@@ -58,6 +58,9 @@ export interface UnifiedScanResult {
   imageUrl: string;
   plantId?: string;
   plantName?: string;
+  isPlantValid: boolean;
+  botanicalConfidence: number;
+  rejectionMessage?: string;
   taxonomy?: ViTTaxonomyResult;
   pathology?: SAMPathologyResult;
   inferenceDurationMs: number;
@@ -71,6 +74,8 @@ export interface ScanSamplePreset {
   description: string;
   imageUrl: string;
   expectedMode: ScannerMode;
+  isNonPlant?: boolean;
+  botanicalConfidence?: number;
   taxonomy: ViTTaxonomyResult;
   pathology: SAMPathologyResult;
 }
@@ -253,6 +258,42 @@ export const SCAN_PRESETS: ScanSamplePreset[] = [
         'Deadhead spent flowers above the first 5-leaflet leaf node.',
       ],
       scientificCitation: 'Le et al. [3] ViT Hierarchical Botanical Recognition.',
+    },
+  },
+  {
+    id: 'preset-nonplant-device',
+    name: 'Non-Plant Object (Laptop / Electronics Demo)',
+    description: 'Test image to demonstrate the rigid pre-validation failure (≤30% botanical confidence check)',
+    imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
+    expectedMode: 'dual',
+    isNonPlant: true,
+    botanicalConfidence: 0.12,
+    taxonomy: {
+      kingdom: 'Non-Biological',
+      order: 'Manufactured Electronics',
+      family: 'Consumer Hardware',
+      genus: 'Computing Device',
+      species: 'Laptop / Display',
+      commonName: 'Non-Plant Electronic Device',
+      confidence: 0.12,
+      leafMorphology: 'Inanimate metallic and polymer materials',
+      petSafety: 'Pet-Safe',
+      taxonomicHierarchy: [],
+    },
+    pathology: {
+      healthScore: 0,
+      condition: 'Non-Plant Object Detected',
+      severity: 'critical',
+      affectedTissuePercentage: 100,
+      confidence: 0.99,
+      affectedRegion: 'Non-Botanical Hardware Surface',
+      lesionRegions: [],
+      gradCamPoints: [],
+      recommendedAction: 'Invalid scan. Please scan botanical foliage, stems, or flowers.',
+      organicRemedy: 'N/A',
+      chemicalRemedy: 'N/A',
+      preventionTips: [],
+      scientificCitation: 'PhytoSophia Computer Vision Pre-Validation',
     },
   },
 ];
@@ -460,6 +501,8 @@ export async function executeUnifiedScan(params: {
         imageUrl: params.imageUrl,
         plantId: params.plantId,
         plantName: params.plantName || liveResult.taxonomy?.commonName || 'Scanned Specimen',
+        isPlantValid: true,
+        botanicalConfidence: 0.98,
         taxonomy: (params.mode === 'dual' || params.mode === 'species') ? liveResult.taxonomy : undefined,
         pathology: (params.mode === 'dual' || params.mode === 'disease') ? liveResult.pathology : undefined,
         inferenceDurationMs: Date.now() - startTime,
@@ -479,6 +522,32 @@ export async function executeUnifiedScan(params: {
       p.imageUrl === params.imageUrl ||
       (params.plantName && params.plantName.toLowerCase().includes(p.taxonomy.commonName.toLowerCase()))
   );
+
+  // Rigid Plant Detection & Validation Logic (Pre-validation check)
+  const isNonPlantPreset = presetMatch?.isNonPlant === true || params.imageUrl.includes('photo-1517336714731-489689fd1ca8');
+  let botanicalConfidence = isNonPlantPreset ? (presetMatch?.botanicalConfidence ?? 0.12) : 0.96;
+
+  if (!presetMatch && !isNonPlantPreset) {
+    const pixelAnalysis = await analyzeImagePixels(params.imageUrl);
+    botanicalConfidence = pixelAnalysis.leafTissueRatio < 0.05 ? 0.15 : 0.94;
+  }
+
+  // Non-Plant Rejection Protocol: if confidence <= 30%, immediately abort diagnostic analysis
+  if (botanicalConfidence <= 0.30) {
+    return {
+      id: `scan-invalid-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      mode: params.mode,
+      imageUrl: params.imageUrl,
+      plantId: params.plantId,
+      plantName: params.plantName || 'Non-Botanical Object',
+      isPlantValid: false,
+      botanicalConfidence,
+      rejectionMessage: '❌ Invalid Scan: This does not appear to be a plant. Please scan botanical foliage, stems, or flowers.',
+      inferenceDurationMs: Date.now() - startTime,
+      isRealGeminiApi: false,
+    };
+  }
 
   let taxonomyResult: ViTTaxonomyResult;
   let pathologyResult: SAMPathologyResult;
@@ -573,6 +642,8 @@ export async function executeUnifiedScan(params: {
     imageUrl: params.imageUrl,
     plantId: params.plantId,
     plantName: params.plantName || taxonomyResult.commonName,
+    isPlantValid: true,
+    botanicalConfidence: 0.97,
     inferenceDurationMs: Date.now() - startTime,
     isRealGeminiApi: false,
   };

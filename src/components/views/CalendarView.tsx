@@ -70,15 +70,42 @@ export const CalendarView: React.FC = () => {
   const getTaskColor = (type: string) => {
     switch (type) {
       case 'Watering':
-        return { bg: 'bg-[#4E763B]', text: 'text-[#193C0D]', lightBg: 'bg-[#F4F7F2]', border: 'border-[#6D835C]/30' };
+        return {
+          bg: 'bg-[#729C65]',
+          text: 'text-white',
+          badgeText: 'text-[#193C0D]',
+          lightBg: 'bg-[#F4F7F2]',
+          border: 'border-[#729C65]/30',
+        };
       case 'Fertilization':
-        return { bg: 'bg-[#729C65]', text: 'text-[#193C0D]', lightBg: 'bg-[#F4F7F2]', border: 'border-[#729C65]/40' };
+      case 'Fertilizing & Nutrients':
+        return {
+          bg: 'bg-[#6D835C]',
+          text: 'text-white',
+          badgeText: 'text-[#193C0D]',
+          lightBg: 'bg-[#F4F7F2]',
+          border: 'border-[#6D835C]/30',
+        };
+      case 'Critical Medical Treatment':
       case 'Health Scan':
-        return { bg: 'bg-[#6D835C]', text: 'text-[#193C0D]', lightBg: 'bg-[#F4F7F2]', border: 'border-[#6D835C]/40' };
+      case 'Pathology Treatment':
+        return {
+          bg: 'bg-[#D32F2F]',
+          text: 'text-white',
+          badgeText: 'text-[#D32F2F]',
+          lightBg: 'bg-[#FFEBEE]',
+          border: 'border-[#FFD2D2]',
+        };
       case 'Pruning':
-        return { bg: 'bg-[#637462]', text: 'text-[#193C0D]', lightBg: 'bg-[#F4F7F2]', border: 'border-[#637462]/30' };
+      case 'General Maintenance':
       default:
-        return { bg: 'bg-[#4E763B]', text: 'text-[#193C0D]', lightBg: 'bg-[#F4F7F2]', border: 'border-[#E4ECE2]' };
+        return {
+          bg: 'bg-[#637462]',
+          text: 'text-white',
+          badgeText: 'text-[#193C0D]',
+          lightBg: 'bg-[#F4F7F2]',
+          border: 'border-[#637462]/30',
+        };
     }
   };
 
@@ -185,23 +212,23 @@ export const CalendarView: React.FC = () => {
             </div>
           </div>
 
-          {/* Legend */}
+          {/* Functional Category Color-Coding Legend */}
           <div className="flex flex-wrap items-center gap-5 text-xs font-medium pb-2 text-[#637462]">
             <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#4E763B]" />
-              <span>Watering</span>
-            </div>
-            <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-[#729C65]" />
-              <span>Fertilization</span>
+              <span className="font-semibold text-[#193C0D]">Watering Tasks</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-[#6D835C]" />
-              <span>Pathology Scan</span>
+              <span className="font-semibold text-[#193C0D]">Fertilizing & Nutrients</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#D32F2F]" />
+              <span className="font-semibold text-[#D32F2F]">Critical Medical Treatments</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-[#637462]" />
-              <span>Pruning</span>
+              <span className="font-semibold text-[#193C0D]">Pruning & Maintenance</span>
             </div>
           </div>
 
