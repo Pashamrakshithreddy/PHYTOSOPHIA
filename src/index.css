@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-canvas: #fbf9f5;
+    --bg-canvas-subtle: #f7f4ee;
+    --surface-card: #ffffff;
+    --text-primary: #172a21;
+    --text-secondary: #4a5d52;
+    --text-muted: #83978b;
+    --brand-forest: #2c6b4f;
+    --brand-forest-dark: #1e4d38;
+    --brand-forest-light: #3d8866;
+    --brand-vibrant: #34c759;
+    --brand-sage: #e8f0e9;
+    --brand-sage-light: #f2f7f3;
+    --border-card: #e8f0e9;
+  }
+
+  body {
+    background-color: #fbf9f5;
+    background-image: 
+      radial-gradient(at 10% 10%, rgba(232, 240, 233, 0.6) 0px, transparent 50%),
+      radial-gradient(at 90% 90%, rgba(242, 247, 243, 0.7) 0px, transparent 50%);
+    background-attachment: fixed;
+    color: #172a21;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.025em;
+    color: #172a21;
+  }
+}
+
+/* Luxurious Card & Hover Lift System */
+.luxury-card {
+  background-color: #ffffff;
+  border: 1px solid #e8f0e9;
+  border-radius: 24px;
+  box-shadow: 0px 10px 30px rgba(44, 107, 79, 0.05);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(44, 107, 79, 0.25);
+  box-shadow: 0px 16px 36px -4px rgba(44, 107, 79, 0.1);
+}
+
+/* Interactive Pill Button with Vibrant Organic Green */
+.luxury-btn-primary {
+  background-color: #34c759;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0px 4px 14px rgba(52, 199, 89, 0.28);
+}
+
+.luxury-btn-primary:hover {
+  transform: translateY(-3px);
+  background-color: #2eb34f;
+  box-shadow: 0px 8px 22px rgba(52, 199, 89, 0.38);
+}
+
+.luxury-btn-forest {
+  background-color: #2c6b4f;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0px 4px 14px rgba(44, 107, 79, 0.22);
+}
+
+.luxury-btn-forest:hover {
+  transform: translateY(-3px);
+  background-color: #23553e;
+  box-shadow: 0px 8px 22px rgba(44, 107, 79, 0.32);
+}
+
+.luxury-btn-outline {
+  background-color: #ffffff;
+  color: #2c6b4f;
+  border: 1px solid #e8f0e9;
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0px 2px 8px rgba(44, 107, 79, 0.04);
+}
+
+.luxury-btn-outline:hover {
+  transform: translateY(-3px);
+  border-color: #2c6b4f;
+  background-color: #f7faf8;
+  box-shadow: 0px 6px 18px rgba(44, 107, 79, 0.08);
+}
+
+/* Interactive Telemetry Tile Hover */
+.telemetry-tile {
+  background-color: #ffffff;
+  border: 1px solid #e8f0e9;
+  border-radius: 20px;
+  box-shadow: 0px 4px 16px rgba(44, 107, 79, 0.03);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.telemetry-tile:hover {
+  transform: translateY(-3px);
+  border-color: rgba(44, 107, 79, 0.2);
+  box-shadow: 0px 10px 26px -2px rgba(44, 107, 79, 0.08);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbdcd1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9ebb9e;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Print CSS for Standard A4 Plant Health Dossier */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  header, nav, .print\:hidden {
+    display: none !important;
+  }
+
+  #printable-dossier {
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 18mm !important;
+  }
+}
