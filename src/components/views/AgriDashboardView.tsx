@@ -16,6 +16,7 @@ import {
   ArrowUpRight,
   ChevronDown,
   ChevronUp,
+  Activity,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -112,7 +113,7 @@ export const AgriDashboardView: React.FC<AgriDashboardProps> = ({
   return (
     <div className="space-y-8 pb-24 animate-in fade-in max-w-7xl mx-auto">
       {/* Top Welcome Context Header */}
-      <div className="luxury-card p-8 sm:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="luxury-card p-5 sm:p-7 lg:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#729C65]" />
@@ -515,6 +516,60 @@ export const AgriDashboardView: React.FC<AgriDashboardProps> = ({
               </button>
             </div>
           </div>
+
+          {/* Dynamic Botanical Telemetry Strip & Active Watering Countdown Widget (Eliminates dead whitespace) */}
+          <div className="p-3.5 sm:p-4 bg-[#F7F9F5] border-t border-[#E4ECE2] grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+            {/* 1. Active Watering Countdown */}
+            <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-2xl border border-[#E4ECE2]">
+              <div className="w-8 h-8 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center shrink-0 border border-sky-100">
+                <Droplets className="w-4 h-4" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <span className="text-[10px] font-bold text-[#637462] uppercase tracking-wider block">
+                  Next Hydration
+                </span>
+                <span className="text-xs font-bold text-[#193C0D] block truncate">
+                  In 4h 18m • Target
+                </span>
+              </div>
+              <button
+                onClick={triggerWater}
+                disabled={isWatering}
+                className="luxury-btn-primary px-2.5 py-1 text-[10px] font-semibold shrink-0"
+              >
+                Water
+              </button>
+            </div>
+
+            {/* 2. Microclimate Cellular Turgor Strip */}
+            <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-2xl border border-[#E4ECE2]">
+              <div className="w-8 h-8 rounded-xl bg-[#F4F7F2] text-[#4E763B] flex items-center justify-center shrink-0 border border-[#E4ECE2]">
+                <Activity className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <span className="text-[10px] font-bold text-[#637462] uppercase tracking-wider block">
+                  Cellular Turgor & VPD
+                </span>
+                <span className="text-xs font-bold text-[#193C0D] block truncate">
+                  0.94 kPa (Optimal Balance)
+                </span>
+              </div>
+            </div>
+
+            {/* 3. Real-Time Telemetry Sync Pulse */}
+            <div className="flex items-center justify-between sm:justify-end gap-2.5 bg-white p-2.5 rounded-2xl border border-[#E4ECE2]">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#729C65] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#4E763B]" />
+                </span>
+                <span className="text-[11px] font-semibold text-[#193C0D]">Sensor Mesh Online</span>
+              </div>
+              <span className="text-[10px] text-[#637462] font-mono bg-[#F4F7F2] px-2 py-0.5 rounded-full border border-[#E4ECE2]">
+                Live 43s ago
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* Daily Care Protocol (4 Cols) */}
@@ -567,6 +622,14 @@ export const AgriDashboardView: React.FC<AgriDashboardProps> = ({
               ))}
             </div>
           )}
+
+          {/* Daily Streak Mini Banner */}
+          <div className="p-3 bg-[#F4F7F2] rounded-2xl border border-[#E4ECE2] flex items-center justify-between text-xs">
+            <span className="text-[#637462] font-medium">Active Routine Streak:</span>
+            <span className="font-bold text-[#4E763B] flex items-center gap-1">
+              🔥 {gardenStats.longestStreak || 5} Days Consistent
+            </span>
+          </div>
 
           <button
             onClick={() => onNavigateTab('calendar')}

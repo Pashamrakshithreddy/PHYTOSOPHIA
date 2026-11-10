@@ -150,7 +150,7 @@ export const MyGardenAndHomeMapView: React.FC<MyGardenAndHomeMapProps> = ({
   return (
     <div className="space-y-8 pb-24 animate-in fade-in max-w-7xl mx-auto">
       {/* Top Banner & Overview */}
-      <div className="luxury-card p-8 sm:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="luxury-card p-5 sm:p-7 lg:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#729C65]" />
@@ -644,7 +644,8 @@ export const MyGardenAndHomeMapView: React.FC<MyGardenAndHomeMapProps> = ({
 
               <button
                 onClick={() => setIsSitterPassOpen(false)}
-                className="p-2 text-[#637462] hover:text-[#193C0D] rounded-full hover:bg-[#F4F7F2]"
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-[#637462] hover:text-[#193C0D] rounded-full hover:bg-[#F4F7F2] transition-colors"
+                aria-label="Close plant sitter pass"
               >
                 <X className="w-5 h-5" />
               </button>

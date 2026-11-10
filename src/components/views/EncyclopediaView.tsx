@@ -121,7 +121,7 @@ export const EncyclopediaView: React.FC<EncyclopediaViewProps> = ({ onImportSucc
   return (
     <div className="space-y-8 pb-24 animate-in fade-in max-w-7xl mx-auto">
       {/* Top Banner */}
-      <div className="luxury-card p-8 sm:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="luxury-card p-5 sm:p-7 lg:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#729C65]" />

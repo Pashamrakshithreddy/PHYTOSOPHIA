@@ -98,7 +98,7 @@ export const TeamBoardView: React.FC = () => {
   return (
     <div className="space-y-12 pb-24 animate-in fade-in max-w-6xl mx-auto">
       {/* Editorial Academic Header */}
-      <div className="luxury-card p-8 sm:p-12">
+      <div className="luxury-card p-5 sm:p-8 lg:p-10">
         <div className="max-w-3xl space-y-4">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#34c759]" />

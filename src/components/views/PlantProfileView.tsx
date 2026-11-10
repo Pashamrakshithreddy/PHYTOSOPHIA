@@ -118,7 +118,7 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <button
           onClick={onBack}
-          className="luxury-btn-outline flex items-center gap-2 px-4 py-2 text-xs font-semibold self-start"
+          className="luxury-btn-outline min-h-[44px] flex items-center gap-2 px-4 py-2.5 text-xs font-semibold self-start"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Garden</span>
@@ -131,7 +131,7 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
 
           <button
             onClick={() => setIsPdfModalOpen(true)}
-            className="luxury-btn-primary flex items-center gap-2 px-4 py-2 text-xs font-semibold"
+            className="luxury-btn-primary min-h-[44px] flex items-center gap-2 px-4 py-2.5 text-xs font-semibold"
           >
             <FileText className="w-4 h-4" />
             <span>Generate A4 Dossier</span>

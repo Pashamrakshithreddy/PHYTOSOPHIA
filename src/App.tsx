@@ -80,8 +80,8 @@ const MainAppContent: React.FC = () => {
         onOpenAddPlantModal={() => handleOpenAddModal()}
       />
 
-      {/* Main View Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      {/* Main View Area with Condensed Top Whitespace & Mobile Bottom Padding */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-3 sm:pt-4 pb-28 md:pb-12">
         {activeTab === 'dashboard' && (
           <AgriDashboardView
             onNavigateTab={handleTabNavigate}

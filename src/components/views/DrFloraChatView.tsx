@@ -147,25 +147,25 @@ export const DrFloraChatView: React.FC<DrFloraChatViewProps> = ({ initialPlantId
   return (
     <div className="space-y-8 pb-24 animate-in fade-in max-w-5xl mx-auto">
       {/* Top Banner */}
-      <div className="luxury-card rounded-3xl p-8 sm:p-10 border border-slate-200/70 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      <div className="luxury-card rounded-3xl p-5 sm:p-7 lg:p-8 border border-[#E4ECE2] bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-emerald-800">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#729C65]" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#4E763B]">
               RAG-Driven Remediation & Botanical Diagnostics
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#193C0D] tracking-tight flex items-center gap-3">
             <span>Dr. Flora — AI Botanical Physician</span>
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 font-medium max-w-xl">
+          <p className="text-xs sm:text-sm text-[#637462] font-medium max-w-xl">
             Real-time botanical troubleshooting powered by Gemini Multimodal RAG with live stateful digital twin context integration.
           </p>
         </div>
 
         <button
           onClick={handleClearHistory}
-          className="p-2.5 text-slate-400 hover:text-slate-600 rounded-xl border border-slate-200 hover:bg-slate-50 transition-all self-start sm:self-auto shrink-0"
+          className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2.5 text-[#637462] hover:text-[#193C0D] rounded-xl border border-[#E4ECE2] hover:bg-[#F4F7F2] transition-all self-start sm:self-auto shrink-0"
           title="Reset Chat History"
         >
           <Trash2 className="w-4 h-4" />

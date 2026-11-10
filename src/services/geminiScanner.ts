@@ -289,7 +289,7 @@ export const SCAN_PRESETS: ScanSamplePreset[] = [
       affectedRegion: 'Non-Botanical Hardware Surface',
       lesionRegions: [],
       gradCamPoints: [],
-      recommendedAction: 'Invalid scan. Please scan botanical foliage, stems, or flowers.',
+      recommendedAction: '❌ Invalid Scan: No plant detected in this image. Please align your camera directly on plant leaves, stems, or flowers.',
       organicRemedy: 'N/A',
       chemicalRemedy: 'N/A',
       preventionTips: [],
@@ -543,7 +543,7 @@ export async function executeUnifiedScan(params: {
       plantName: params.plantName || 'Non-Botanical Object',
       isPlantValid: false,
       botanicalConfidence,
-      rejectionMessage: '❌ Invalid Scan: This does not appear to be a plant. Please scan botanical foliage, stems, or flowers.',
+      rejectionMessage: '❌ Invalid Scan: No plant detected in this image. Please align your camera directly on plant leaves, stems, or flowers.',
       inferenceDurationMs: Date.now() - startTime,
       isRealGeminiApi: false,
     };

@@ -216,7 +216,7 @@ export const ScannerView: React.FC<ScannerViewProps> = ({ initialPlantId }) => {
   return (
     <div className="space-y-8 pb-24 animate-in fade-in max-w-7xl mx-auto">
       {/* Top Header Card */}
-      <div className="luxury-card p-8 sm:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="luxury-card p-5 sm:p-7 lg:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#729C65]" />
@@ -602,7 +602,7 @@ export const ScannerView: React.FC<ScannerViewProps> = ({ initialPlantId }) => {
                   Pre-Validation Neural Rejection Protocol Activated
                 </span>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-[#D32F2F]">
-                  {scanResult.rejectionMessage || '❌ Invalid Scan: This does not appear to be a plant. Please scan botanical foliage, stems, or flowers.'}
+                  {scanResult.rejectionMessage || '❌ Invalid Scan: No plant detected in this image. Please align your camera directly on plant leaves, stems, or flowers.'}
                 </h3>
                 <p className="text-xs sm:text-sm text-[#C62828] font-medium max-w-lg mx-auto leading-relaxed">
                   The computer vision confidence score for botanical features (leaves, stems, petals, fronds) was only {Math.round(scanResult.botanicalConfidence * 100)}%, which falls below the strict 30% validity threshold. Diagnostic analysis was aborted to prevent hallucinated classifications.

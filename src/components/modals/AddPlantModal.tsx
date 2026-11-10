@@ -179,9 +179,10 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-full text-[#637462] hover:text-[#193C0D] bg-[#F4F7F2]"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-full text-[#637462] hover:text-[#193C0D] bg-[#F4F7F2] transition-colors"
+            aria-label="Close registration dialog"
           >
-            <X className="w-4 h-4" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
