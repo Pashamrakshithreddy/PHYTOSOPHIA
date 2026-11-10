@@ -36,10 +36,10 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
   if (!plant) {
     return (
       <div className="text-center py-16 space-y-4">
-        <p className="text-[#83978b]">Digital Twin not found in Room Database.</p>
+        <p className="text-[#637462]">Digital Twin not found in Room Database.</p>
         <button
           onClick={onBack}
-          className="luxury-btn-forest px-4 py-2 text-xs font-semibold"
+          className="luxury-btn-primary px-4 py-2 text-xs font-semibold"
         >
           Return to My Garden
         </button>
@@ -125,7 +125,7 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
         </button>
 
         <div className="flex items-center gap-3">
-          <span className="text-xs font-mono text-[#2c6b4f] bg-[#e8f0e9] px-3.5 py-1.5 rounded-full border border-[#c5ddc7] font-semibold">
+          <span className="text-xs font-mono text-[#4E763B] bg-[#F4F7F2] px-3.5 py-1.5 rounded-full border border-[#6D835C]/30 font-semibold">
             Twin ID: {plant.id}
           </span>
 
@@ -140,14 +140,14 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
       </div>
 
       {fertilizerLoggedToast && (
-        <div className="bg-[#e8f0e9] border border-[#c5ddc7] text-[#172a21] text-xs font-semibold px-4 py-3 rounded-2xl shadow-xs flex items-center justify-between animate-in fade-in">
+        <div className="bg-[#F4F7F2] border border-[#6D835C]/30 text-[#193C0D] text-xs font-semibold px-4 py-3 rounded-2xl shadow-xs flex items-center justify-between animate-in fade-in">
           <span>{fertilizerLoggedToast}</span>
-          <CheckCircle2 className="w-4 h-4 text-[#34c759]" />
+          <CheckCircle2 className="w-4 h-4 text-[#729C65]" />
         </div>
       )}
 
       {/* 3D Visualizer Studio */}
-      <div className="relative w-full h-[470px] rounded-[24px] overflow-hidden border border-[#e8f0e9] luxury-card">
+      <div className="relative w-full h-[470px] rounded-[24px] overflow-hidden border border-[#E4ECE2] luxury-card">
         <Plant3DViewer
           growthStage={plant.growthStage}
           healthState={plant.healthState}
@@ -161,11 +161,11 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
         />
 
         {/* Floating Quick Care Action HUD */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-4 py-2 rounded-full border border-[#e8f0e9] shadow-[0px_4px_16px_rgba(44,107,79,0.08)] flex items-center gap-2 z-30">
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-4 py-2 rounded-full border border-[#E4ECE2] shadow-[0px_4px_16px_rgba(25,60,13,0.08)] flex items-center gap-2 z-30">
           <button
             onClick={triggerWater}
             disabled={isWatering}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-sky-50 hover:bg-sky-100 text-sky-800 text-xs font-semibold rounded-full border border-sky-200/60 transition-all hover:-translate-y-0.5"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#F4F7F2] hover:bg-[#6D835C] text-[#4E763B] hover:text-white text-xs font-semibold rounded-full border border-[#E4ECE2] transition-all hover:-translate-y-0.5"
           >
             <Droplets className="w-3.5 h-3.5" />
             <span>Water</span>
@@ -174,7 +174,7 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
           <button
             onClick={triggerFertilize}
             disabled={isFertilizing}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#e8f0e9] hover:bg-[#d8e7da] text-[#2c6b4f] text-xs font-semibold rounded-full border border-[#c5ddc7] transition-all hover:-translate-y-0.5"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#F4F7F2] hover:bg-[#6D835C] text-[#4E763B] hover:text-white text-xs font-semibold rounded-full border border-[#E4ECE2] transition-all hover:-translate-y-0.5"
           >
             <Sprout className="w-3.5 h-3.5" />
             <span>Fertilize</span>
@@ -182,7 +182,7 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
 
           <button
             onClick={triggerSunlight}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-semibold rounded-full border border-amber-200/60 transition-all hover:-translate-y-0.5"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#F4F7F2] hover:bg-[#6D835C] text-[#4E763B] hover:text-white text-xs font-semibold rounded-full border border-[#E4ECE2] transition-all hover:-translate-y-0.5"
           >
             <Sun className="w-3.5 h-3.5" />
             <span>Solar</span>
@@ -190,7 +190,7 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
 
           <button
             onClick={() => onNavigateTab('scanner', { plantId: plant.id })}
-            className="luxury-btn-forest flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold"
+            className="luxury-btn-primary flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold"
           >
             <Scan className="w-3.5 h-3.5" />
             <span>AI Scan</span>
@@ -201,57 +201,57 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
       {/* Botanical Health Meters Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
         <div className="luxury-card p-6 space-y-1">
-          <span className="text-[10px] font-bold uppercase text-[#83978b] tracking-wider block">
+          <span className="text-[10px] font-bold uppercase text-[#637462] tracking-wider block">
             Vitality Index
           </span>
-          <div className="text-3xl font-bold text-[#172a21]">
+          <div className="text-3xl font-bold text-[#193C0D]">
             {plant.healthScore}%
           </div>
-          <div className="w-full bg-[#e8f0e9] h-2 rounded-full overflow-hidden mt-2">
+          <div className="w-full bg-[#F4F7F2] h-2 rounded-full overflow-hidden mt-2 border border-[#E4ECE2]">
             <div
-              className="bg-[#34c759] h-full rounded-full transition-all duration-700"
+              className="bg-[#729C65] h-full rounded-full transition-all duration-700"
               style={{ width: `${plant.healthScore}%` }}
             />
           </div>
         </div>
 
         <div className="luxury-card p-6 space-y-1">
-          <span className="text-[10px] font-bold uppercase text-[#83978b] tracking-wider block">
+          <span className="text-[10px] font-bold uppercase text-[#637462] tracking-wider block">
             Chlorosis Risk
           </span>
-          <div className="text-3xl font-bold text-[#172a21]">
+          <div className="text-3xl font-bold text-[#193C0D]">
             {100 - plant.healthScore < 15 ? 'Low' : 'Moderate'}
           </div>
-          <div className="w-full bg-[#e8f0e9] h-2 rounded-full overflow-hidden mt-2">
+          <div className="w-full bg-[#F4F7F2] h-2 rounded-full overflow-hidden mt-2 border border-[#E4ECE2]">
             <div
-              className="bg-[#2c6b4f] h-full rounded-full transition-all duration-700"
+              className="bg-[#4E763B] h-full rounded-full transition-all duration-700"
               style={{ width: `${Math.max(10, 100 - plant.healthScore)}%` }}
             />
           </div>
         </div>
 
         <div className="luxury-card p-6 space-y-1">
-          <span className="text-[10px] font-bold uppercase text-[#83978b] tracking-wider block">
+          <span className="text-[10px] font-bold uppercase text-[#637462] tracking-wider block">
             Root Hydration
           </span>
-          <div className="text-3xl font-bold text-[#172a21]">
+          <div className="text-3xl font-bold text-[#193C0D]">
             Optimal
           </div>
-          <div className="w-full bg-[#e8f0e9] h-2 rounded-full overflow-hidden mt-2">
-            <div className="bg-sky-500 h-full rounded-full transition-all duration-700" style={{ width: '64%' }} />
+          <div className="w-full bg-[#F4F7F2] h-2 rounded-full overflow-hidden mt-2 border border-[#E4ECE2]">
+            <div className="bg-[#4E763B] h-full rounded-full transition-all duration-700" style={{ width: '64%' }} />
           </div>
         </div>
 
         <div className="luxury-card p-6 space-y-1">
-          <span className="text-[10px] font-bold uppercase text-[#83978b] tracking-wider block">
+          <span className="text-[10px] font-bold uppercase text-[#637462] tracking-wider block">
             Care Streak
           </span>
-          <div className="text-3xl font-bold text-[#2c6b4f]">
+          <div className="text-3xl font-bold text-[#4E763B]">
             {plant.careStreak} Days
           </div>
-          <div className="w-full bg-[#e8f0e9] h-2 rounded-full overflow-hidden mt-2">
+          <div className="w-full bg-[#F4F7F2] h-2 rounded-full overflow-hidden mt-2 border border-[#E4ECE2]">
             <div
-              className="bg-[#34c759] h-full rounded-full transition-all duration-700"
+              className="bg-[#729C65] h-full rounded-full transition-all duration-700"
               style={{ width: `${Math.min(100, plant.careStreak * 6)}%` }}
             />
           </div>
@@ -262,22 +262,22 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
       <div className="luxury-card p-6 sm:p-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h3 className="text-base font-bold text-[#172a21] tracking-tight">
+            <h3 className="text-base font-bold text-[#193C0D] tracking-tight">
               Interactive Longitudinal Growth Curve
             </h3>
-            <p className="text-xs text-[#83978b] mt-0.5">
+            <p className="text-xs text-[#637462] mt-0.5">
               Select metrics to plot height, foliar count, and vitality checkpoints.
             </p>
           </div>
 
           {/* Metric Selector Pills */}
-          <div className="flex items-center gap-1 bg-[#f2f7f3] p-1 rounded-full text-xs font-semibold self-start sm:self-auto">
+          <div className="flex items-center gap-1 bg-[#F4F7F2] p-1 rounded-full text-xs font-semibold self-start sm:self-auto border border-[#E4ECE2]">
             <button
               onClick={() => setActiveChartMetric('height')}
               className={`px-3 py-1 rounded-full transition-all ${
                 activeChartMetric === 'height'
-                  ? 'bg-white text-[#2c6b4f] font-bold shadow-xs'
-                  : 'text-[#4a5d52]'
+                  ? 'bg-white text-[#4E763B] font-bold shadow-xs'
+                  : 'text-[#637462]'
               }`}
             >
               Height (cm)
@@ -286,8 +286,8 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
               onClick={() => setActiveChartMetric('leaves')}
               className={`px-3 py-1 rounded-full transition-all ${
                 activeChartMetric === 'leaves'
-                  ? 'bg-white text-[#2c6b4f] font-bold shadow-xs'
-                  : 'text-[#4a5d52]'
+                  ? 'bg-white text-[#4E763B] font-bold shadow-xs'
+                  : 'text-[#637462]'
               }`}
             >
               Leaf Count
@@ -296,8 +296,8 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
               onClick={() => setActiveChartMetric('health')}
               className={`px-3 py-1 rounded-full transition-all ${
                 activeChartMetric === 'health'
-                  ? 'bg-white text-[#2c6b4f] font-bold shadow-xs'
-                  : 'text-[#4a5d52]'
+                  ? 'bg-white text-[#4E763B] font-bold shadow-xs'
+                  : 'text-[#637462]'
               }`}
             >
               Health Score (%)
@@ -306,19 +306,19 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
         </div>
 
         {/* SVG Interactive Growth Chart */}
-        <div className="relative w-full h-56 bg-[#f7faf8] rounded-2xl p-4 overflow-hidden border border-[#e8f0e9]">
+        <div className="relative w-full h-56 bg-[#F4F7F2]/40 rounded-2xl p-4 overflow-hidden border border-[#E4ECE2]">
           <svg className="w-full h-full" viewBox="0 0 480 180" preserveAspectRatio="none">
             {/* Grid lines */}
-            <line x1="20" y1="40" x2="460" y2="40" stroke="#e8f0e9" strokeDasharray="3 3" />
-            <line x1="20" y1="90" x2="460" y2="90" stroke="#e8f0e9" strokeDasharray="3 3" />
-            <line x1="20" y1="140" x2="460" y2="140" stroke="#e8f0e9" strokeDasharray="3 3" />
+            <line x1="20" y1="40" x2="460" y2="40" stroke="#E4ECE2" strokeDasharray="3 3" />
+            <line x1="20" y1="90" x2="460" y2="90" stroke="#E4ECE2" strokeDasharray="3 3" />
+            <line x1="20" y1="140" x2="460" y2="140" stroke="#E4ECE2" strokeDasharray="3 3" />
 
             {/* Growth Curve Polyline */}
             {svgPathD && (
               <path
                 d={svgPathD}
                 fill="none"
-                stroke="#2c6b4f"
+                stroke="#4E763B"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -332,7 +332,7 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
                   cx={pt.x}
                   cy={pt.y}
                   r="5"
-                  className="fill-[#34c759] stroke-white stroke-2 hover:r-7 transition-all"
+                  className="fill-[#729C65] stroke-white stroke-2 hover:r-7 transition-all"
                 />
                 <title>{`${pt.date}: ${pt.val} (${pt.stage}) - ${pt.event}`}</title>
               </g>
@@ -340,7 +340,7 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
           </svg>
 
           {/* X-Axis Dates */}
-          <div className="flex justify-between text-[10px] text-[#83978b] font-medium px-4 pt-1">
+          <div className="flex justify-between text-[10px] text-[#637462] font-medium px-4 pt-1">
             {growthHistory.map((g, i) => (
               <span key={i}>{g.date}</span>
             ))}
@@ -351,43 +351,43 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
       {/* Care Specifications & Fertilizer Schedule */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="luxury-card p-6 sm:p-8 space-y-4">
-          <div className="flex items-center gap-2 text-[#2c6b4f] font-bold text-xs uppercase tracking-wider">
-            <Layers className="w-4 h-4 text-[#2c6b4f]" />
+          <div className="flex items-center gap-2 text-[#4E763B] font-bold text-xs uppercase tracking-wider">
+            <Layers className="w-4 h-4 text-[#4E763B]" />
             Care Specifications
           </div>
-          <h4 className="text-base font-bold text-[#172a21]">
+          <h4 className="text-base font-bold text-[#193C0D]">
             Biological Parameters
           </h4>
 
           <div className="grid grid-cols-2 gap-3 text-xs">
-            <div className="p-3 bg-[#f7faf8] rounded-xl border border-[#e8f0e9]">
-              <span className="text-[10px] text-[#83978b] block font-semibold">Sunlight</span>
-              <strong className="text-[#172a21]">{plant.sunlight}</strong>
+            <div className="p-3 bg-[#F4F7F2] rounded-xl border border-[#E4ECE2]">
+              <span className="text-[10px] text-[#637462] block font-semibold">Sunlight</span>
+              <strong className="text-[#193C0D]">{plant.sunlight}</strong>
             </div>
 
-            <div className="p-3 bg-[#f7faf8] rounded-xl border border-[#e8f0e9]">
-              <span className="text-[10px] text-[#83978b] block font-semibold">Water Interval</span>
-              <strong className="text-[#172a21]">Every {plant.waterIntervalDays} days</strong>
+            <div className="p-3 bg-[#F4F7F2] rounded-xl border border-[#E4ECE2]">
+              <span className="text-[10px] text-[#637462] block font-semibold">Water Interval</span>
+              <strong className="text-[#193C0D]">Every {plant.waterIntervalDays} days</strong>
             </div>
 
-            <div className="p-3 bg-[#f7faf8] rounded-xl border border-[#e8f0e9]">
-              <span className="text-[10px] text-[#83978b] block font-semibold">Temperature</span>
-              <strong className="text-[#172a21]">{plant.idealTempRange}</strong>
+            <div className="p-3 bg-[#F4F7F2] rounded-xl border border-[#E4ECE2]">
+              <span className="text-[10px] text-[#637462] block font-semibold">Temperature</span>
+              <strong className="text-[#193C0D]">{plant.idealTempRange}</strong>
             </div>
 
-            <div className="p-3 bg-[#f7faf8] rounded-xl border border-[#e8f0e9]">
-              <span className="text-[10px] text-[#83978b] block font-semibold">Humidity</span>
-              <strong className="text-[#172a21]">{plant.idealHumidityRange}</strong>
+            <div className="p-3 bg-[#F4F7F2] rounded-xl border border-[#E4ECE2]">
+              <span className="text-[10px] text-[#637462] block font-semibold">Humidity</span>
+              <strong className="text-[#193C0D]">{plant.idealHumidityRange}</strong>
             </div>
 
-            <div className="p-3 bg-[#f7faf8] rounded-xl border border-[#e8f0e9]">
-              <span className="text-[10px] text-[#83978b] block font-semibold">Soil EC Target</span>
-              <strong className="text-[#172a21]">{plant.soilEcTarget}</strong>
+            <div className="p-3 bg-[#F4F7F2] rounded-xl border border-[#E4ECE2]">
+              <span className="text-[10px] text-[#637462] block font-semibold">Soil EC Target</span>
+              <strong className="text-[#193C0D]">{plant.soilEcTarget}</strong>
             </div>
 
-            <div className="p-3 bg-[#f7faf8] rounded-xl border border-[#e8f0e9]">
-              <span className="text-[10px] text-[#83978b] block font-semibold">Pet Safety</span>
-              <strong className={plant.petSafe ? 'text-[#2c6b4f]' : 'text-rose-700'}>
+            <div className="p-3 bg-[#F4F7F2] rounded-xl border border-[#E4ECE2]">
+              <span className="text-[10px] text-[#637462] block font-semibold">Pet Safety</span>
+              <strong className={plant.petSafe ? 'text-[#4E763B]' : 'text-[#D32F2F]'}>
                 {plant.petSafe ? 'Pet Safe' : 'Toxic to Pets'}
               </strong>
             </div>
@@ -397,34 +397,34 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
         <div className="luxury-card p-6 sm:p-8 space-y-4 flex flex-col justify-between">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-[#2c6b4f] font-bold text-xs uppercase tracking-wider">
-                <Sprout className="w-4 h-4 text-[#34c759]" />
+              <div className="flex items-center gap-2 text-[#4E763B] font-bold text-xs uppercase tracking-wider">
+                <Sprout className="w-4 h-4 text-[#729C65]" />
                 Fertilizer Schedule Tracking
               </div>
-              <span className="text-xs font-semibold text-[#2c6b4f] bg-[#e8f0e9] px-2.5 py-0.5 rounded-full border border-[#c5ddc7]">
+              <span className="text-xs font-semibold text-[#4E763B] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full border border-[#6D835C]/30">
                 NPK {fertilizerSchedule?.npkRatio || '3-1-2'}
               </span>
             </div>
 
-            <h4 className="text-base font-bold text-[#172a21]">
+            <h4 className="text-base font-bold text-[#193C0D]">
               {fertilizerSchedule?.formula || 'Balanced Tropical Liquid Formulation'}
             </h4>
 
-            <p className="text-xs text-[#4a5d52]">
+            <p className="text-xs text-[#637462]">
               Dosage: {fertilizerSchedule?.dosageRecommendation || '5ml diluted in 2L water every 14 days.'}
             </p>
 
             <div className="grid grid-cols-2 gap-3 pt-2 text-xs">
-              <div className="p-3 bg-[#f7faf8] rounded-xl border border-[#e8f0e9]">
-                <span className="text-[10px] text-[#83978b] block font-semibold">Last Applied</span>
-                <strong className="text-[#172a21]">
+              <div className="p-3 bg-[#F4F7F2] rounded-xl border border-[#E4ECE2]">
+                <span className="text-[10px] text-[#637462] block font-semibold">Last Applied</span>
+                <strong className="text-[#193C0D]">
                   {fertilizerSchedule?.lastApplied.split('T')[0] || plant.lastFertilized.split('T')[0]}
                 </strong>
               </div>
 
-              <div className="p-3 bg-[#f7faf8] rounded-xl border border-[#e8f0e9]">
-                <span className="text-[10px] text-[#83978b] block font-semibold">Next Scheduled Due</span>
-                <strong className="text-[#2c6b4f]">
+              <div className="p-3 bg-[#F4F7F2] rounded-xl border border-[#E4ECE2]">
+                <span className="text-[10px] text-[#637462] block font-semibold">Next Scheduled Due</span>
+                <strong className="text-[#4E763B]">
                   {fertilizerSchedule?.nextDue.split('T')[0] || 'In 7 days'}
                 </strong>
               </div>
@@ -434,7 +434,7 @@ export const PlantProfileView: React.FC<PlantProfileViewProps> = ({
           <button
             onClick={triggerFertilize}
             disabled={isFertilizing}
-            className="luxury-btn-forest w-full py-2.5 text-xs font-semibold flex items-center justify-center gap-1.5 mt-4"
+            className="luxury-btn-primary w-full py-2.5 text-xs font-semibold flex items-center justify-center gap-1.5 mt-4"
           >
             <CheckCircle2 className="w-4 h-4" />
             <span>Record Fertilizer Application (+35 XP)</span>

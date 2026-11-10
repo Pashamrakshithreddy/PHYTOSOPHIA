@@ -20,6 +20,7 @@ export interface PlantEntity {
   };
   imageUrl: string;
   location: 'Indoor' | 'Outdoor';
+  roomZone?: 'Living Room' | 'Balcony Terrace' | 'Kitchen Windowsill' | 'Bedroom' | 'Greenhouse' | string;
   sunlight: 'Direct Sunlight' | 'Bright Indirect' | 'Partial Shade' | 'Low Light';
   category: 'indoor' | 'outdoor' | 'flowering' | 'succulent' | 'herbs';
   addedDate: string;
@@ -148,6 +149,7 @@ const SEED_PLANTS: PlantEntity[] = [
     },
     imageUrl: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=800&q=80',
     location: 'Indoor',
+    roomZone: 'Living Room',
     sunlight: 'Bright Indirect',
     category: 'indoor',
     addedDate: '2026-08-15T09:00:00Z',
@@ -182,6 +184,7 @@ const SEED_PLANTS: PlantEntity[] = [
     },
     imageUrl: 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=800&q=80',
     location: 'Outdoor',
+    roomZone: 'Balcony Terrace',
     sunlight: 'Direct Sunlight',
     category: 'outdoor',
     addedDate: '2026-09-01T10:00:00Z',
@@ -216,6 +219,7 @@ const SEED_PLANTS: PlantEntity[] = [
     },
     imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
     location: 'Outdoor',
+    roomZone: 'Greenhouse',
     sunlight: 'Direct Sunlight',
     category: 'flowering',
     addedDate: '2026-08-01T10:00:00Z',
@@ -250,6 +254,7 @@ const SEED_PLANTS: PlantEntity[] = [
     },
     imageUrl: 'https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?auto=format&fit=crop&w=800&q=80',
     location: 'Indoor',
+    roomZone: 'Kitchen Windowsill',
     sunlight: 'Bright Indirect',
     category: 'succulent',
     addedDate: '2026-07-20T10:00:00Z',
@@ -284,6 +289,7 @@ const SEED_PLANTS: PlantEntity[] = [
     },
     imageUrl: 'https://images.unsplash.com/photo-1597055181374-4b5b7b6c59b6?auto=format&fit=crop&w=800&q=80',
     location: 'Indoor',
+    roomZone: 'Bedroom',
     sunlight: 'Partial Shade',
     category: 'indoor',
     addedDate: '2026-09-10T12:00:00Z',
@@ -636,7 +642,22 @@ export class RoomDatabase {
   public plantDao = {
     getAll: (): PlantEntity[] => {
       const data = localStorage.getItem(STORAGE_KEYS.PLANTS);
-      return data ? JSON.parse(data) : SEED_PLANTS;
+      const list: PlantEntity[] = data ? JSON.parse(data) : SEED_PLANTS;
+      return list.map((p) => {
+        if (!p.roomZone) {
+          const matched = SEED_PLANTS.find((s) => s.id === p.id);
+          return {
+            ...p,
+            roomZone: matched?.roomZone || (p.location === 'Outdoor' ? 'Balcony Terrace' : 'Living Room'),
+          };
+        }
+        return p;
+      });
+    },
+
+    getByRoom: (roomZone: string): PlantEntity[] => {
+      const list = this.plantDao.getAll();
+      return list.filter((p) => p.roomZone?.toLowerCase() === roomZone.toLowerCase());
     },
 
     getById: (id: string): PlantEntity | undefined => {

@@ -69,6 +69,7 @@ export interface DigitalTwinPlant {
   taxonomy: Taxonomy;
   imageUrl: string;
   location: 'Indoor' | 'Outdoor';
+  roomZone?: 'Living Room' | 'Balcony Terrace' | 'Kitchen Windowsill' | 'Bedroom' | 'Greenhouse' | string;
   sunlight: 'Direct Sunlight' | 'Bright Indirect' | 'Partial Shade' | 'Low Light';
   addedDate: string;
   healthScore: number; // 0-100

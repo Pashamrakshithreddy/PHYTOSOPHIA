@@ -19,6 +19,7 @@ import { LeaderboardView } from './components/views/LeaderboardView';
 import { ProfileView } from './components/views/ProfileView';
 import { SettingsView } from './components/views/SettingsView';
 import { TeamBoardView } from './components/views/TeamBoardView';
+import { HomeSpatialHubView } from './components/views/HomeSpatialHubView';
 import { AddPlantModal } from './components/modals/AddPlantModal';
 import type { DigitalTwinPlant } from './types';
 
@@ -29,6 +30,7 @@ const MainAppContent: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('dashboard');
   const [selectedPlantId, setSelectedPlantId] = useState<string>('plant-monstera-1');
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
+  const [addModalPrefill, setAddModalPrefill] = useState<{ roomZone?: string; sunlight?: any } | undefined>(undefined);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState<boolean>(false);
 
   // Protected Route Check
@@ -60,18 +62,23 @@ const MainAppContent: React.FC = () => {
     setActiveTab(tab);
   };
 
+  const handleOpenAddModal = (prefill?: { roomZone?: string; sunlight?: any }) => {
+    setAddModalPrefill(prefill);
+    setIsAddModalOpen(true);
+  };
+
   const handlePlantAdded = (plant: DigitalTwinPlant) => {
     setSelectedPlantId(plant.id);
     setActiveTab('plant-detail');
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fbf9f5] text-[#172a21] font-sans antialiased selection:bg-[#34c759]/20 selection:text-[#1e4d38]">
+    <div className="min-h-screen flex flex-col bg-[#F7F9F5] text-[#193C0D] font-sans antialiased selection:bg-[#729C65]/20 selection:text-[#193C0D]">
       {/* Header & Floating Nav */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        onOpenAddPlantModal={() => setIsAddModalOpen(true)}
+        onOpenAddPlantModal={() => handleOpenAddModal()}
       />
 
       {/* Main View Area */}
@@ -79,14 +86,14 @@ const MainAppContent: React.FC = () => {
         {activeTab === 'dashboard' && (
           <AgriDashboardView
             onNavigateTab={handleTabNavigate}
-            onOpenAddModal={() => setIsAddModalOpen(true)}
+            onOpenAddModal={() => handleOpenAddModal()}
           />
         )}
 
         {activeTab === 'plants' && (
           <MyPlantsView
             onSelectPlant={handleSelectPlant}
-            onOpenAddModal={() => setIsAddModalOpen(true)}
+            onOpenAddModal={() => handleOpenAddModal()}
           />
         )}
 
@@ -107,6 +114,13 @@ const MainAppContent: React.FC = () => {
 
         {activeTab === 'recovery' && (
           <RecoveryHubView onNavigateTab={handleTabNavigate} />
+        )}
+
+        {activeTab === 'spatial-hub' && (
+          <HomeSpatialHubView
+            onNavigateTab={handleTabNavigate}
+            onOpenAddModal={handleOpenAddModal}
+          />
         )}
 
         {activeTab === 'calendar' && <CalendarView />}
@@ -140,8 +154,12 @@ const MainAppContent: React.FC = () => {
       {/* Add Plant Modal */}
       <AddPlantModal
         isOpen={isAddModalOpen}
-        onClose={() => setIsAddModalOpen(false)}
+        onClose={() => {
+          setIsAddModalOpen(false);
+          setAddModalPrefill(undefined);
+        }}
         onPlantAdded={handlePlantAdded}
+        prefill={addModalPrefill}
       />
 
       {/* Onboarding Wizard Modal */}
@@ -150,7 +168,7 @@ const MainAppContent: React.FC = () => {
         onComplete={(shouldAddPlant) => {
           setIsOnboardingOpen(false);
           if (shouldAddPlant) {
-            setIsAddModalOpen(true);
+            handleOpenAddModal();
           }
         }}
       />

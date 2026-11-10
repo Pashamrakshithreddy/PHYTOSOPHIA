@@ -70,44 +70,44 @@ export const CalendarView: React.FC = () => {
   const getTaskColor = (type: string) => {
     switch (type) {
       case 'Watering':
-        return { bg: 'bg-sky-500', text: 'text-sky-800', lightBg: 'bg-sky-50', border: 'border-sky-200' };
+        return { bg: 'bg-[#4E763B]', text: 'text-[#193C0D]', lightBg: 'bg-[#F4F7F2]', border: 'border-[#6D835C]/30' };
       case 'Fertilization':
-        return { bg: 'bg-emerald-600', text: 'text-emerald-800', lightBg: 'bg-emerald-50', border: 'border-emerald-200' };
+        return { bg: 'bg-[#729C65]', text: 'text-[#193C0D]', lightBg: 'bg-[#F4F7F2]', border: 'border-[#729C65]/40' };
       case 'Health Scan':
-        return { bg: 'bg-indigo-600', text: 'text-indigo-800', lightBg: 'bg-indigo-50', border: 'border-indigo-200' };
+        return { bg: 'bg-[#6D835C]', text: 'text-[#193C0D]', lightBg: 'bg-[#F4F7F2]', border: 'border-[#6D835C]/40' };
       case 'Pruning':
-        return { bg: 'bg-amber-600', text: 'text-amber-800', lightBg: 'bg-amber-50', border: 'border-amber-200' };
+        return { bg: 'bg-[#637462]', text: 'text-[#193C0D]', lightBg: 'bg-[#F4F7F2]', border: 'border-[#637462]/30' };
       default:
-        return { bg: 'bg-slate-600', text: 'text-slate-800', lightBg: 'bg-slate-50', border: 'border-slate-200' };
+        return { bg: 'bg-[#4E763B]', text: 'text-[#193C0D]', lightBg: 'bg-[#F4F7F2]', border: 'border-[#E4ECE2]' };
     }
   };
 
   return (
-    <div className="space-y-10 pb-24 animate-in fade-in max-w-7xl mx-auto">
+    <div className="space-y-8 pb-24 animate-in fade-in max-w-7xl mx-auto">
       {/* Top Banner */}
-      <div className="luxury-card rounded-3xl p-8 sm:p-10 border border-slate-200/70 bg-white flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="luxury-card p-8 sm:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-emerald-800">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#729C65]" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#4E763B]">
               Care Matrix & Dynamic Weather Synchronization
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#193C0D] tracking-tight">
             Plant Care Calendar
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 font-medium max-w-xl">
+          <p className="text-xs sm:text-sm text-[#637462] font-medium max-w-xl">
             Schedule and track watering, pathology scans, and fertilizations with automatic weather-based watering postponement.
           </p>
         </div>
 
         {/* Plant Filter */}
         <div className="flex items-center gap-3">
-          <span className="text-xs font-semibold text-slate-600">Filter Plant:</span>
+          <span className="text-xs font-semibold text-[#637462]">Filter Plant:</span>
           <select
             value={selectedPlantFilter}
             onChange={(e) => setSelectedPlantFilter(e.target.value)}
-            className="bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-800 rounded-xl px-3 py-2 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="bg-[#F4F7F2] border border-[#E4ECE2] text-xs font-semibold text-[#193C0D] rounded-xl px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#4E763B]"
           >
             <option value="all">All Digital Twins</option>
             {plants.map((p) => (
@@ -121,21 +121,21 @@ export const CalendarView: React.FC = () => {
 
       {/* Dynamic Weather-Based Watering Adjustment Alert Banner */}
       {weather.rainProbabilityPercent >= 50 && (
-        <div className="p-6 rounded-3xl bg-sky-50/60 border border-sky-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
+        <div className="luxury-card p-6 border-[#6D835C]/30 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-2xl bg-sky-600 text-white flex items-center justify-center shrink-0 shadow-xs">
-              <CloudRain className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-2xl bg-[#4E763B] text-white flex items-center justify-center shrink-0 shadow-xs">
+              <CloudRain className="w-5 h-5 text-white" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-sky-950 uppercase tracking-wider">
+                <span className="text-xs font-bold text-[#193C0D] uppercase tracking-wider">
                   Precipitation Watcher
                 </span>
-                <span className="bg-sky-100 text-sky-800 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                <span className="bg-[#F4F7F2] text-[#4E763B] text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-[#6D835C]/30">
                   {weather.rainProbabilityPercent}% Rain Predicted
                 </span>
               </div>
-              <p className="text-xs text-slate-600 mt-1 max-w-2xl leading-relaxed">
+              <p className="text-xs text-[#637462] mt-1 max-w-2xl leading-relaxed">
                 Precipitation expected in {weather.locationName}. Avoid waterlogging outdoor specimens by postponing manual irrigation by 24h.
               </p>
             </div>
@@ -143,7 +143,7 @@ export const CalendarView: React.FC = () => {
 
           <button
             onClick={handleApplyWeatherAdjustment}
-            className="px-4 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs rounded-xl shadow-xs transition-all shrink-0 self-start sm:self-center"
+            className="luxury-btn-primary px-4 py-2.5 text-xs font-semibold shrink-0 self-start sm:self-center"
           >
             Auto-Postpone Outdoor Watering (+24h)
           </button>
@@ -151,19 +151,20 @@ export const CalendarView: React.FC = () => {
       )}
 
       {weatherAdjustNotification && (
-        <div className="bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-semibold px-4 py-3 rounded-2xl animate-in fade-in">
-          {weatherAdjustNotification}
+        <div className="bg-[#F4F7F2] border border-[#6D835C]/30 text-[#193C0D] text-xs font-semibold px-4 py-3 rounded-2xl animate-in fade-in flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 text-[#729C65] shrink-0" />
+          <span>{weatherAdjustNotification}</span>
         </div>
       )}
 
       {/* Main Grid: Calendar on Left, Tasks on Right */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Monthly Grid (8 Cols) */}
-        <div className="lg:col-span-8 luxury-card rounded-3xl p-6 sm:p-8 border border-slate-200/70 bg-white space-y-6">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <div className="lg:col-span-8 luxury-card p-6 sm:p-8 space-y-6">
+          <div className="flex items-center justify-between pb-4 border-b border-[#E4ECE2]">
+            <h2 className="text-lg font-bold text-[#193C0D] flex items-center gap-2">
               <span>{monthNames[month]} {year}</span>
-              <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-100">
+              <span className="text-xs font-semibold text-[#4E763B] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full border border-[#6D835C]/30">
                 {careTasks.filter((t) => !t.isCompleted).length} Tasks Due
               </span>
             </h2>
@@ -171,13 +172,13 @@ export const CalendarView: React.FC = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={handlePrevMonth}
-                className="p-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all"
+                className="p-2 rounded-xl border border-[#E4ECE2] text-[#637462] hover:bg-[#F4F7F2] transition-all"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 onClick={handleNextMonth}
-                className="p-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all"
+                className="p-2 rounded-xl border border-[#E4ECE2] text-[#637462] hover:bg-[#F4F7F2] transition-all"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -185,27 +186,27 @@ export const CalendarView: React.FC = () => {
           </div>
 
           {/* Legend */}
-          <div className="flex flex-wrap items-center gap-5 text-xs font-medium pb-2 text-slate-500">
+          <div className="flex flex-wrap items-center gap-5 text-xs font-medium pb-2 text-[#637462]">
             <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-sky-500" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#4E763B]" />
               <span>Watering</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-600" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#729C65]" />
               <span>Fertilization</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-indigo-600" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#6D835C]" />
               <span>Pathology Scan</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-amber-600" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#637462]" />
               <span>Pruning</span>
             </div>
           </div>
 
           {/* Day of Week Headers */}
-          <div className="grid grid-cols-7 text-center text-xs font-bold text-slate-400 uppercase tracking-wider">
+          <div className="grid grid-cols-7 text-center text-xs font-bold text-[#637462] uppercase tracking-wider">
             <span>Sun</span>
             <span>Mon</span>
             <span>Tue</span>
@@ -218,7 +219,7 @@ export const CalendarView: React.FC = () => {
           {/* Day Cells */}
           <div className="grid grid-cols-7 gap-2">
             {Array.from({ length: firstDayIndex }).map((_, i) => (
-              <div key={`empty-${i}`} className="h-20 sm:h-24 rounded-2xl bg-slate-50/50" />
+              <div key={`empty-${i}`} className="h-20 sm:h-24 rounded-2xl bg-[#F4F7F2]/50 border border-transparent" />
             ))}
 
             {Array.from({ length: daysInMonth }).map((_, i) => {
@@ -234,27 +235,27 @@ export const CalendarView: React.FC = () => {
                   onClick={() => setSelectedDay(dayNum)}
                   className={`h-20 sm:h-24 p-2.5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
                     isSelected
-                      ? 'border-emerald-600 bg-emerald-50/40 ring-1 ring-emerald-500'
+                      ? 'border-[#4E763B] bg-[#F4F7F2] ring-1 ring-[#4E763B]'
                       : isToday
-                      ? 'border-emerald-300 bg-white hover:border-emerald-400'
-                      : 'border-slate-200/80 bg-white hover:bg-slate-50/80'
+                      ? 'border-[#6D835C] bg-white hover:border-[#4E763B]'
+                      : 'border-[#E4ECE2] bg-white hover:bg-[#F4F7F2]/60'
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <span
                       className={`text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center ${
                         isToday
-                          ? 'bg-emerald-600 text-white'
+                          ? 'bg-[#4E763B] text-white'
                           : isSelected
-                          ? 'bg-emerald-100 text-emerald-800'
-                          : 'text-slate-800'
+                          ? 'bg-[#6D835C] text-white'
+                          : 'text-[#193C0D]'
                       }`}
                     >
                       {dayNum}
                     </span>
 
                     {dayTasks.length > 0 && (
-                      <span className="text-[10px] font-bold text-slate-400">
+                      <span className="text-[10px] font-bold text-[#637462]">
                         {dayTasks.length}
                       </span>
                     )}
@@ -268,7 +269,7 @@ export const CalendarView: React.FC = () => {
                         <div
                           key={task.id}
                           className={`w-full text-[9px] font-semibold px-1.5 py-0.5 rounded truncate ${
-                            task.isCompleted ? 'line-through opacity-50 bg-slate-100 text-slate-500' : `${color.bg} text-white`
+                            task.isCompleted ? 'line-through opacity-50 bg-[#F4F7F2] text-[#637462]' : `${color.bg} text-white`
                           }`}
                         >
                           {task.taskType}
@@ -276,7 +277,7 @@ export const CalendarView: React.FC = () => {
                       );
                     })}
                     {dayTasks.length > 2 && (
-                      <span className="text-[9px] text-slate-400 font-medium">
+                      <span className="text-[9px] text-[#637462] font-medium">
                         +{dayTasks.length - 2} more
                       </span>
                     )}
@@ -288,24 +289,24 @@ export const CalendarView: React.FC = () => {
         </div>
 
         {/* Selected Day Agenda (4 Cols) */}
-        <div className="lg:col-span-4 luxury-card rounded-3xl p-6 sm:p-8 border border-slate-200/70 bg-white space-y-5">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div className="lg:col-span-4 luxury-card p-6 sm:p-8 space-y-5">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E4ECE2]">
             <div>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Care Agenda</span>
-              <h3 className="text-base font-bold text-slate-900">
+              <span className="text-[10px] font-bold text-[#637462] uppercase tracking-wider block">Care Agenda</span>
+              <h3 className="text-base font-bold text-[#193C0D]">
                 {monthNames[month]} {selectedDay}, {year}
               </h3>
             </div>
 
-            <span className="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1 rounded-xl">
+            <span className="text-xs font-semibold bg-[#F4F7F2] text-[#4E763B] px-3 py-1 rounded-xl border border-[#E4ECE2]">
               {selectedDayTasks.length} Scheduled
             </span>
           </div>
 
           {selectedDayTasks.length === 0 ? (
             <div className="text-center py-12 space-y-2">
-              <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
-              <p className="text-xs text-slate-500 font-medium">
+              <CheckCircle2 className="w-8 h-8 text-[#729C65] mx-auto" />
+              <p className="text-xs text-[#637462] font-medium">
                 No care tasks due on this date.
               </p>
             </div>
@@ -324,41 +325,41 @@ export const CalendarView: React.FC = () => {
                       </span>
 
                       {task.weatherPostponed && (
-                        <span className="bg-sky-100 text-sky-800 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                        <span className="bg-white text-[#4E763B] text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#6D835C]/30">
                           Weather Postponed
                         </span>
                       )}
                     </div>
 
                     <div>
-                      <h4 className="text-xs font-bold text-slate-900">
+                      <h4 className="text-xs font-bold text-[#193C0D]">
                         {task.plantName}
                       </h4>
-                      <p className="text-[11px] text-slate-500 italic">
+                      <p className="text-[11px] text-[#637462] italic">
                         {task.plantSpecies}
                       </p>
                     </div>
 
                     {task.weatherPostponeReason && (
-                      <p className="text-[10px] text-sky-800 bg-sky-100/50 p-2 rounded-xl font-medium">
+                      <p className="text-[10px] text-[#4E763B] bg-white/70 p-2 rounded-xl font-medium border border-[#E4ECE2]">
                         {task.weatherPostponeReason}
                       </p>
                     )}
 
                     <div className="flex items-center justify-between pt-1">
-                      <span className="text-[11px] font-semibold text-emerald-800">
+                      <span className="text-[11px] font-semibold text-[#4E763B]">
                         +{task.xpReward} XP
                       </span>
 
                       {task.isCompleted ? (
-                        <span className="text-xs font-bold text-emerald-700 flex items-center gap-1">
+                        <span className="text-xs font-bold text-[#729C65] flex items-center gap-1">
                           <CheckCircle2 className="w-4 h-4" />
                           Done
                         </span>
                       ) : (
                         <button
                           onClick={() => handleCompleteTask(task.id)}
-                          className="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl shadow-xs transition-all flex items-center gap-1"
+                          className="luxury-btn-primary px-3 py-1 text-xs font-semibold flex items-center gap-1"
                         >
                           <CheckCircle2 className="w-3.5 h-3.5" />
                           <span>Complete</span>
